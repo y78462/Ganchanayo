@@ -46,6 +46,7 @@ public class calendarActivity extends AppCompatActivity {
     Cursor cursor;
     MaterialCalendarView materialCalendarView;
     String selectedDate;
+    ArrayList<String> request_result = new ArrayList<>(); //질이의 결과
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,8 +68,8 @@ public class calendarActivity extends AppCompatActivity {
                 new SaturdayDacorator(),
                 oneDayDecorator);
 
-        String[] result = {"2017,03,18","2017,04,18","2017,05,18","2017,06,18"};
 
+       String[] result = request_result.toArray(new String[request_result.size()]);//질이의 결과
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -167,10 +168,10 @@ public class calendarActivity extends AppCompatActivity {
 
             /*특정날짜 달력에 점표시해주는곳*/
             /*월은 0이 1월 년,일은 그대로*/
-            //string 문자열인 Time_Result 을 받아와서 ,를 기준으로짜르고 string을 int 로 변환
+            //string 문자열인 Time_Result 을 받아와서 -를 기준으로짜르고 string을 int 로 변환
             for(int i = 0 ; i < Time_Result.length ; i ++){
                 CalendarDay day = CalendarDay.from(calendar);
-                String[] time = Time_Result[i].split(",");
+                String[] time = Time_Result[i].split("-");
                 int year = Integer.parseInt(time[0]);
                 int month = Integer.parseInt(time[1]);
                 int dayy = Integer.parseInt(time[2]);
