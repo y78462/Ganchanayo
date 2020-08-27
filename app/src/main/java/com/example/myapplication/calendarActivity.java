@@ -68,8 +68,7 @@ public class calendarActivity extends AppCompatActivity {
                 new SaturdayDacorator(),
                 oneDayDecorator);
 
-
-       String[] result = request_result.toArray(new String[request_result.size()]);//질이의 결과
+        String[] result = request_result.toArray(new String[request_result.size()]);//질의 결과
         new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -90,6 +89,68 @@ public class calendarActivity extends AppCompatActivity {
                 Log.i("shot_Day test", shot_Day + "");
                // materialCalendarView.clearSelection();
                 //Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
+
+                //31일까지 (1,3,5,7,8,10,12)
+                //30일까지 (4,6,9,11)
+                //2월은 4년마다 29일 나머지는 28일
+                String string_request_year, string_request_month, string_request_day;
+                String request_key;
+
+                for(int request_day=1; request_day<=31; request_day++) {
+
+                    if(Month==2 && Year%4==0) { //2월 29일
+                        if(request_day>29)
+                            break;
+
+                    }
+
+                    else if (Month==2 && Year%4!=0) { //2월 28일
+                        if(request_day>28)
+                            break;
+
+                    }
+
+                    else { //2월이 아닌 경우
+
+                    }
+
+                    string_request_year = Integer.toString(Year);
+                    string_request_month = Integer.toString(Month);
+                    string_request_day = Integer.toString(request_day);
+
+                    request_key = string_request_year + "-" + string_request_month + "-" + string_request_day;
+
+                    //request_key string으로 질의
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean success = jsonObject.getBoolean("success");
+                                if(success)
+                                {
+                                    //로그인에 성공한 경우
+                                    String dateKey = jsonObject.getString("date");
+                                    request_result.add(dateKey);
+                                    Log.i("request",dateKey);
+
+
+                                }else
+                                {
+                                    //실패한 경우
+
+
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    LoginRequest loginRequest= new LoginRequest(request_key,responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(calendarActivity.this);
+                    queue.add(loginRequest);
+
+                }
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -113,9 +174,6 @@ public class calendarActivity extends AppCompatActivity {
                                 tv_memo.setText("메모\n"+memo);
                                 tv_Kcal.setText(Kcal+"Kcal");
 
-
-
-
                                 //Toast.makeText(getApplicationContext()," 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                 //Toast.makeText(getApplicationContext(),dateKey+drinkAmount+memo+Kcal,Toast.LENGTH_SHORT).show();
 
@@ -134,7 +192,6 @@ public class calendarActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 };
                 LoginRequest loginRequest= new LoginRequest(shot_Day,responseListener);
