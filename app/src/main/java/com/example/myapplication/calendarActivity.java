@@ -111,7 +111,12 @@ public class calendarActivity extends AppCompatActivity {
 
                     }
 
-                    else { //2월이 아닌 경우
+                    else if (Month==4 || Month==6 || Month==9 || Month==11) { //30일까지 있는 달
+                        if(request_day>30)
+                            break;
+                    }
+
+                    else { //31일까지 있는 달
 
                     }
 
