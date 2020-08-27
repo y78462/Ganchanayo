@@ -58,8 +58,8 @@ public class calendarActivity extends AppCompatActivity {
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setMinimumDate(CalendarDay.from(2017, 0, 1)) // 달력의 시작
-                .setMaximumDate(CalendarDay.from(2030, 11, 31)) // 달력의 끝
+                .setMinimumDate(CalendarDay.from(2019, 0, 1)) // 달력의 시작
+                .setMaximumDate(CalendarDay.from(2025, 11, 31)) // 달력의 끝
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
 
@@ -68,8 +68,8 @@ public class calendarActivity extends AppCompatActivity {
                 new SaturdayDacorator(),
                 oneDayDecorator);
 
-        String[] result = request_result.toArray(new String[request_result.size()]);//질의 결과
-        new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
+
+
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
 
@@ -90,6 +90,7 @@ public class calendarActivity extends AppCompatActivity {
                // materialCalendarView.clearSelection();
                 //Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
 
+                //데이너있는날짜에 점표시
                 //31일까지 (1,3,5,7,8,10,12)
                 //30일까지 (4,6,9,11)
                 //2월은 4년마다 29일 나머지는 28일
@@ -132,14 +133,8 @@ public class calendarActivity extends AppCompatActivity {
                                     //로그인에 성공한 경우
                                     String dateKey = jsonObject.getString("date");
                                     request_result.add(dateKey);
-                                    Log.i("request",dateKey);
-
-
                                 }else
                                 {
-                                    //실패한 경우
-
-
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -151,6 +146,8 @@ public class calendarActivity extends AppCompatActivity {
                     queue.add(loginRequest);
 
                 }
+                String[] result = request_result.toArray(new String[request_result.size()]);//질의 결과
+                new ApiSimulator(result).executeOnExecutor(Executors.newSingleThreadExecutor());
 
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -245,6 +242,10 @@ public class calendarActivity extends AppCompatActivity {
 
             if (isFinishing()) {
                 return;
+            }
+            if(calendarDays.contains(CalendarDay.today()))
+            {
+                calendarDays.remove(CalendarDay.today());
             }
 
             materialCalendarView.addDecorator(new EventDecorator(Color.GREEN, calendarDays,calendarActivity.this));
