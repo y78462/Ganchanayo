@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_main"
+    tools:context=".hjMap"
+    android:orientation="vertical">
+    <TextView
+        android:fontFamily="@font/baedal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="해장 맛집 추천"
+        android:textColor="#1abc9c"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:textStyle="bold"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:fontFamily="@font/baedal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="      묻고 해장하러 가!  "
+            android:gravity="right|center_vertical"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="italic|bold" />
+
+        <ImageView
+            android:layout_width="181dp"
+            android:layout_height="127dp"
+            android:layout_gravity="right"
+            android:src="@drawable/guak" />
+
+    </LinearLayout>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal">
+
+        <Button
+            android:fontFamily="@font/baedal"
+            android:text="장소검색"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button"/>
+        <Button
+            android:fontFamily="@font/baedal"
+            android:text="네이버로 찾아보기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/naver_btn"/>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

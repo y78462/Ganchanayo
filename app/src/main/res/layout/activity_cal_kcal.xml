@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".cal_kcal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/baedal"
+        android:gravity="center"
+        android:lines="2"
+        android:text="당신이 어제 먹은 술의 \n칼로리는?"
+        android:textColor="#1abc9c"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:fontFamily="@font/baedal"
+            android:id="@+id/totalkcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_line"
+            android:gravity="center"
+            android:text="totalkcal"
+            android:textSize="25dp" />
+
+        <TextView
+            android:fontFamily="@font/baedal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Kcal"
+            android:textColor="#000000"
+            android:textSize="30dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/baedal"
+        android:gravity="center"
+        android:text="이 칼로리를 소모하려면?"
+        android:textColor="#000000"
+        android:textSize="23dp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/running"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="90dp"
+            android:maxHeight="90dp"
+            android:src="@drawable/running" />
+
+        <TextView
+            android:id="@+id/running_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/running"
+            android:background="@drawable/speech_bubble"
+            android:fontFamily="@font/baedal"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="string_jogging"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/hiker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/running_text"
+            android:layout_alignLeft="@id/running_text"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="90dp"
+            android:maxHeight="90dp"
+            android:src="@drawable/hiker" />
+
+        <TextView
+            android:id="@+id/hiker_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/running_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/hiker"
+            android:background="@drawable/speech_bubble"
+            android:fontFamily="@font/baedal"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="string_climbing"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/cycling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hiker"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="90dp"
+            android:maxHeight="90dp"
+            android:src="@drawable/cycling" />
+
+        <TextView
+            android:id="@+id/cycling_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hiker"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/cycling"
+            android:background="@drawable/speech_bubble"
+            android:fontFamily="@font/baedal"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="string_riding"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:id="@+id/climbing_stairs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cycling"
+            android:layout_alignLeft="@+id/cycling_text"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="90dp"
+            android:maxHeight="90dp"
+            android:src="@drawable/climbing_stairs" />
+
+        <TextView
+            android:id="@+id/climbing_stairs_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cycling"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/climbing_stairs"
+            android:background="@drawable/speech_bubble"
+            android:fontFamily="@font/baedal"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="string_stair_climbing"
+            android:textSize="20dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#A7DFE6"
+        android:fontFamily="@font/baedal"
+        android:text="다이어리에 저장" />
+</LinearLayout>
