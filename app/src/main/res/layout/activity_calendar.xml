@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:backgroundTint="#FFFFFF"
     android:orientation="vertical">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
+        android:fontFamily="@font/baedal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -16,10 +17,44 @@
         app:mcv_showOtherDates="defaults"
         tools:ignore="MissingClass" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1"
+        android:background="@drawable/grid"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_Kcal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/baedal"
+            android:layout_margin="10dp"
+            android:backgroundTint="#DAD4D4"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tv_drinkAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/baedal"
+            android:backgroundTint="#DAD4D4"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/tv_memo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:backgroundTint="#DAD4D4"
+            android:fontFamily="@font/baedal"
+            android:padding="10dp" />
+    </LinearLayout>
 
 </LinearLayout>

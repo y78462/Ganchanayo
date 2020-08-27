@@ -25,7 +25,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:orientation="horizontal">
 
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
 
-                android:layout_marginLeft="110dp"
+                android:layout_marginLeft="100dp"
                 android:fontFamily="@font/baedal"
                 android:gravity="center_vertical|right"
                 android:text="너의 간...괜찮아요?\n 마니놀랐쬬?"
@@ -57,7 +57,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:baselineAligned="true"
         android:orientation="horizontal">
 
@@ -67,7 +67,7 @@
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:maxWidth="50dp"
-            android:maxHeight="50dp"
+            android:maxHeight="40dp"
             android:src="@drawable/sj" />
 
         <TextView
@@ -117,7 +117,7 @@
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:maxWidth="50dp"
-            android:maxHeight="50dp"
+            android:maxHeight="40dp"
             android:src="@drawable/mj" />
 
         <TextView
@@ -166,14 +166,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
-            android:maxWidth="50dp"
+            android:maxWidth="45dp"
             android:maxHeight="50dp"
             android:src="@drawable/mgl" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="25dp"
             android:fontFamily="@font/baedal"
             android:text="막걸리"
             android:textSize="23dp"
@@ -217,13 +217,13 @@
             android:layout_marginLeft="20dp"
             android:adjustViewBounds="true"
             android:maxWidth="50dp"
-            android:maxHeight="50dp"
+            android:maxHeight="40dp"
             android:src="@drawable/sm" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:fontFamily="@font/baedal"
             android:text="쏘맥"
             android:textSize="25dp"
@@ -267,7 +267,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 

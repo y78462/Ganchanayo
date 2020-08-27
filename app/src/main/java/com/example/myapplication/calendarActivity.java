@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.app.AlertDialog;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
 
@@ -103,13 +105,29 @@ public class calendarActivity extends AppCompatActivity {
                                 String memo = jsonObject.getString("memo");
                                 String Kcal = jsonObject.getString("Kcal");
 
+                                TextView tv_Kcal=findViewById(R.id.tv_Kcal);
+                                TextView tv_memo=findViewById(R.id.tv_memo);
+                                TextView tv_drinkAmount=findViewById(R.id.tv_drinkAmount);
+                                tv_drinkAmount.setText("술 섭취량 : "+drinkAmount);
+                                tv_memo.setText("메모\n"+memo);
+                                tv_Kcal.setText(Kcal+"Kcal");
+
+
+
+
                                 //Toast.makeText(getApplicationContext()," 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(),dateKey+drinkAmount+memo+Kcal,Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),dateKey+drinkAmount+memo+Kcal,Toast.LENGTH_SHORT).show();
 
                             }else
                             {
                                 //실패한 경우
-                                Toast.makeText(getApplicationContext(),"내용 없음",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"내용 없음",Toast.LENGTH_SHORT).show();
+                                TextView tv_Kcal=findViewById(R.id.tv_Kcal);
+                                TextView tv_memo=findViewById(R.id.tv_memo);
+                                TextView tv_drinkAmount=findViewById(R.id.tv_drinkAmount);
+                                tv_drinkAmount.setText("");
+                                tv_memo.setText("메모\n");
+                                tv_Kcal.setText("");
                                 return;
                             }
                         } catch (JSONException e) {

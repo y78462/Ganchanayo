@@ -40,6 +40,9 @@ public class cal_kcal extends AppCompatActivity {
     double rhour = 0, rmin = 0;
     double shour = 0, smin = 0;
     String string_jogging, string_climbing, string_riding, string_stair_climbing;
+    String drinkAmount ;
+    String  Kcal;
+    final String[] memo = {""};
 
     Button btn_register;
     String msg;
@@ -117,7 +120,7 @@ public class cal_kcal extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                final String[] memo = {""};
+
                 AlertDialog.Builder ad = new AlertDialog.Builder(cal_kcal.this);
 
                 ad.setTitle("Memo");
@@ -130,6 +133,32 @@ public class cal_kcal extends AppCompatActivity {
 
                         String newmemo = et_memo.getText().toString();
                         memo[0] = newmemo;
+                        Response.Listener<String> responseListener = new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    boolean success = jsonObject.getBoolean("success");
+                                    if (success) {
+                                        //성공한 경우
+                                        Toast.makeText(getApplicationContext(), "다이어리 작성 성공!", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        //회원등록에 실패한 경우 그냥 토스트 띄우고 리턴함.
+                                        Toast.makeText(getApplicationContext(), "다이어리 작성 실패!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        };
+
+                        //String date, String drinkAmount, String memo, String Kcal, Response.Listener<String> listener
+                        //서버로 volley라이브러리를 이요해서 요청을 함.
+                        //Toast.makeText(cal_kcal.this, ""+date+drinkAmount+memo+Kcal, Toast.LENGTH_SHORT).show();
+                        RegisterRequest registerRequest = new RegisterRequest(msg, drinkAmount, memo[0], Kcal, responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(cal_kcal.this);
+                        queue.add(registerRequest);
                         Toast.makeText(getApplicationContext(), "다이어리 작성 성공!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
@@ -147,8 +176,8 @@ public class cal_kcal extends AppCompatActivity {
 
                 ad.show();
                 //서버에 넣을 데이터 : 날짜, drinkAmount, kcal, memo
-                String drinkAmount = "소주"+sj+"잔,"+"맥주"+mj+"잔, "+"막걸리"+mgl+"사발,"+"소맥"+sm+"잔\n";
-                String  Kcal = string_result+"Kcal";
+                 drinkAmount = "소주 "+sj+" 잔,"+"맥주 "+mj+" 잔, "+"막걸리 "+mgl+" 사발,"+" 소맥"+sm+" 잔";
+                  Kcal = string_result+"Kcal";
 
                 init(drinkAmount, memo[0],Kcal);
             }
@@ -206,33 +235,32 @@ public class cal_kcal extends AppCompatActivity {
 
                 msg = String.format("%d-%d-%d", year, month + 1, date);
                 //Toast.makeText(cal_kcal.this, msg, Toast.LENGTH_SHORT).show();
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            boolean success = jsonObject.getBoolean("success");
-                            if (success) {
-                                //성공한 경우
-                                Toast.makeText(getApplicationContext(), "다이어리 작성 성공!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                //회원등록에 실패한 경우 그냥 토스트 띄우고 리턴함.
-                                Toast.makeText(getApplicationContext(), "다이어리 작성 실패!", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-
-                //String date, String drinkAmount, String memo, String Kcal, Response.Listener<String> listener
-                //서버로 volley라이브러리를 이요해서 요청을 함.
-                //Toast.makeText(cal_kcal.this, ""+date+drinkAmount+memo+Kcal, Toast.LENGTH_SHORT).show();
-                RegisterRequest registerRequest = new RegisterRequest(msg, drinkAmount, memo, Kcal, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(cal_kcal.this);
-                queue.add(registerRequest);
+//                Response.Listener<String> responseListener = new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response);
+//                            boolean success = jsonObject.getBoolean("success");
+//                            if (success) {
+//                                //성공한 경우
+//                                Toast.makeText(getApplicationContext(), "다이어리 작성 성공!", Toast.LENGTH_SHORT).show();
+//                            } else {
+//                                //회원등록에 실패한 경우 그냥 토스트 띄우고 리턴함.
+//                                Toast.makeText(getApplicationContext(), "다이어리 작성 실패!", Toast.LENGTH_SHORT).show();
+//                                return;
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                };
+//
+//                //String date, String drinkAmount, String memo, String Kcal, Response.Listener<String> listener
+//                //서버로 volley라이브러리를 이요해서 요청을 함.
+//                //Toast.makeText(cal_kcal.this, ""+date+drinkAmount+memo+Kcal, Toast.LENGTH_SHORT).show();
+//                RegisterRequest registerRequest = new RegisterRequest(msg, drinkAmount, memo, Kcal, responseListener);
+//                RequestQueue queue = Volley.newRequestQueue(cal_kcal.this);
+//                queue.add(registerRequest);
 
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE));
