@@ -20,20 +20,6 @@
         android:layout_width="match_parent"
 
         android:layout_height="0dp"
-        android:layout_weight="1">
-
-s        <Button
-            android:id="@+id/memo_btn"
-            android:layout_alignParentRight="true"
-            android:layout_width="60dp"
-            android:layout_height="64dp"
-            android:layout_margin="10dp"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="5"
-            android:background="@drawable/cycle"
-            android:scaleType="centerInside"/>
-
-    </RelativeLayout>
+        android:layout_weight="1"/>
 
 </LinearLayout>

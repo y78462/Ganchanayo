@@ -9,22 +9,25 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade;
 
 import java.util.Calendar;
 
-class Sundaydacorator implements DayViewDecorator {
+public class SaturdayDacorator implements DayViewDecorator {
 
     private final Calendar calendar = Calendar.getInstance();
 
-    public void SundayDecorator() {
+    public void SaturdayDecorator() {
+
+
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
         day.copyTo(calendar);
         int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
-        return weekDay == Calendar.SUNDAY;
+        return weekDay == Calendar.SATURDAY;
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        view.addSpan(new ForegroundColorSpan(Color.RED));
+        view.addSpan(new ForegroundColorSpan(Color.BLUE));
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,10 +22,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,11 +40,10 @@ import java.util.concurrent.Executors;
 
 public class calendarActivity extends AppCompatActivity {
 
-    String time,kcal,menu;
     private final OneDayDecorator oneDayDecorator = new OneDayDecorator();
     Cursor cursor;
     MaterialCalendarView materialCalendarView;
-    Button memo;
+    String selectedDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,10 +60,10 @@ public class calendarActivity extends AppCompatActivity {
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
 
-        //materialCalendarView.addDecorators(
-        //        new SundayDecorator(),
-        //        new SaturdayDecorator(),
-        //        oneDayDecorator);
+        materialCalendarView.addDecorators(
+                new Sundaydacorator(),
+                new SaturdayDacorator(),
+                oneDayDecorator);
 
         String[] result = {"2017,03,18","2017,04,18","2017,05,18","2017,06,18"};
 
@@ -75,42 +81,51 @@ public class calendarActivity extends AppCompatActivity {
                 Log.i("Month test", Month + "");
                 Log.i("Day test", Day + "");
 
-                String shot_Day = Year + "," + Month + "," + Day;
+                String shot_Day = Year + "-" + Month + "-" + Day;
+                selectedDate = shot_Day;
 
                 Log.i("shot_Day test", shot_Day + "");
                // materialCalendarView.clearSelection();
-                Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), shot_Day, Toast.LENGTH_SHORT).show();
+
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if(success)
+                            {
+                                //로그인에 성공한 경우
+                                String dateKey = jsonObject.getString("date");
+                                String drinkAmount = jsonObject.getString("drinkAmount");
+                                String memo = jsonObject.getString("memo");
+                                String Kcal = jsonObject.getString("Kcal");
+
+                                //Toast.makeText(getApplicationContext()," 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),dateKey+drinkAmount+memo+Kcal,Toast.LENGTH_SHORT).show();
+
+                            }else
+                            {
+                                //실패한 경우
+                                Toast.makeText(getApplicationContext(),"내용 없음",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                LoginRequest loginRequest= new LoginRequest(shot_Day,responseListener);
+                RequestQueue queue = Volley.newRequestQueue(calendarActivity.this);
+                queue.add(loginRequest);
+
+                //textview에 네가지정보 보여주기
             }
         });
 
-        memo = (Button)findViewById(R.id.memo_btn);
-        memo.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(calendarActivity.this);
-
-                ad.setTitle("Memo");
-                final EditText et = new EditText(calendarActivity.this);
-                ad.setView(et);
-
-                ad.setPositiveButton("저장", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) { //메모 저장 버튼 눌렀을 때 서버에 저장하는거 추가하기
-                        dialog.dismiss();
-                    }
-                });
-
-                ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                ad.show();
-            }
-        });
     }
 
     private class ApiSimulator extends AsyncTask<Void, Void, List<CalendarDay>> {
@@ -145,9 +160,6 @@ public class calendarActivity extends AppCompatActivity {
                 dates.add(day);
                 calendar.set(year,month-1,dayy);
             }
-
-
-
             return dates;
         }
 
