@@ -130,6 +130,7 @@ public class cal_kcal extends AppCompatActivity {
 
                         String newmemo = et_memo.getText().toString();
                         memo[0] = newmemo;
+                        Toast.makeText(getApplicationContext(), "다이어리 작성 성공!", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
                     }
                 });
@@ -137,7 +138,9 @@ public class cal_kcal extends AppCompatActivity {
                 ad.setNegativeButton("취소", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         dialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "다이어리 작성 실패!", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 });
